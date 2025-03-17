@@ -4,550 +4,463 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>龙海私厨·健康午餐</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        /* 全局样式 */
+        :root {
+            --primary-color: #8e6c4e;
+            --secondary-color: #f8f3e9;
+            --accent-color: #e9b872;
+            --text-color: #4a4a4a;
+            --light-text: #7a7a7a;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
         body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background-color: #f9f7f4;
+            color: var(--text-color);
             line-height: 1.6;
-            color: #333;
-            background-color: #f9f7f1;
-            margin: 0;
-            padding: 0;
+            padding-bottom: 80px;
         }
         
-        /* 容器 */
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 10px;
-        }
-        
-        /* 页头 */
-        header {
-            text-align: center;
+        .header {
+            background-color: white;
             padding: 20px 0;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
-        h1 {
-            font-size: 1.8rem;
-            color: #d35400;
-            margin: 0;
-        }
-        
-        .subtitle {
-            font-size: 1rem;
-            color: #7f8c8d;
-            margin-top: 10px;
-        }
-        
-        /* 介绍部分 */
-        .intro {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-        
-        .intro h2 {
-            color: #d35400;
-            border-bottom: 2px solid #f0e6d2;
-            padding-bottom: 10px;
+        .logo {
             font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
         }
         
-        .feature {
+        .logo-accent {
+            color: var(--accent-color);
+        }
+        
+        .intro-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .intro-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
             margin-bottom: 15px;
         }
         
-        .feature h3 {
-            color: #e67e22;
-            margin-bottom: 5px;
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .feature-icon {
+            color: var(--accent-color);
             font-size: 1.2rem;
+            margin-right: 10px;
+            flex-shrink: 0;
         }
         
-        .feature p {
-            margin: 5px 0;
-            font-size: 0.95rem;
+        .feature-text {
+            flex-grow: 1;
         }
         
-        /* 菜单部分 */
-        .menu-section {
-            background-color: #fff;
+        .menu-date {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .date-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .menu-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
         }
         
-        .menu-section h2 {
-            color: #d35400;
-            border-bottom: 2px solid #f0e6d2;
-            padding-bottom: 10px;
-            font-size: 1.5rem;
+        .menu-card.active {
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .menu-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
         .menu-day {
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
         }
         
-        .menu-day h3 {
-            background-color: #f8f1e5;
-            padding: 10px 15px;
-            border-radius: 4px;
-            color: #d35400;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+        .menu-date-small {
+            font-size: 0.9rem;
+            color: var(--light-text);
         }
         
-        .menu-items {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
+        .menu-category {
+            font-weight: 600;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            color: var(--primary-color);
         }
         
         .menu-item {
-            background-color: #f9f7f1;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .menu-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .nutrition-badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        
+        .nutrition-section {
+            background-color: #f8f7f2;
             padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius);
+            margin-top: 15px;
         }
         
-        .menu-item h4 {
-            margin-top: 0;
-            color: #e67e22;
-            border-bottom: 1px dashed #e0d6c2;
-            padding-bottom: 5px;
-            font-size: 1.1rem;
-        }
-        
-        .menu-item p {
-            margin: 5px 0;
+        .nutrition-title {
             font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
         
-        .menu-photo {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-top: 10px;
+        .nutrition-icon {
+            margin-right: 6px;
+            color: var(--accent-color);
         }
         
-        .nutrition-analysis {
-            background-color: #f0f9eb;
-            padding: 15px;
-            border-radius: 8px;
+        .attendees-section {
             margin-top: 15px;
-            border-left: 4px solid #67c23a;
-            font-size: 0.9rem;
+            padding-top: 15px;
+            border-top: 1px dashed #e0e0e0;
         }
         
-        .nutrition-analysis h4 {
-            color: #67c23a;
-            margin-top: 0;
-            font-size: 1.1rem;
+        .attendees-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
         }
         
-        .attendance {
-            background-color: #f2f6fc;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-top: 15px;
+        .attendees-count {
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 8px;
         }
         
-        .attendance h4 {
-            color: #409eff;
-            margin-top: 0;
-            font-size: 1.1rem;
-        }
-        
-        .attendance-list {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 0 0;
+        .attendees-list {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
         
-        .attendance-list li {
-            background-color: #ecf5ff;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.9rem;
+        .attendee-tag {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
         }
         
-        .attendance-count {
-            text-align: right;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #409eff;
-        }
-        
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        /* 响应式设计 - 平板和桌面 */
-        @media (min-width: 768px) {
-            .container {
-                max-width: 90%;
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .container {
-                max-width: 1000px;
-            }
-            
-            .menu-items {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        /* 图片上传提示样式 */
-        .upload-tip {
-            background-color: #f8f9fa;
-            border: 1px dashed #ddd;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .upload-tip h3 {
-            margin-top: 0;
-            color: #606266;
-        }
-        
-        .upload-tip ol {
-            margin: 10px 0 0 0;
-            padding-left: 20px;
-        }
-        
-        .upload-tip code {
-            background-color: #f0f0f0;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-        
-        /* 折叠面板 */
-        .collapsible {
-            background-color: #f8f1e5;
-            color: #d35400;
-            cursor: pointer;
-            padding: 10px 15px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 1.2rem;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .collapsible:after {
-            content: '\002B';
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
-        
-        .active:after {
-            content: "\2212";
-        }
-        
-        .content {
-            max-height: 0;
+        .menu-image-container {
+            margin: 15px 0;
+            border-radius: var(--border-radius);
             overflow: hidden;
-            transition: max-height 0.2s ease-out;
+        }
+        
+        .menu-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .footer {
+            background-color: white;
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            text-align: center;
+        }
+        
+        .empty-card {
+            background-color: #f8f7f2;
+            border: 2px dashed #e0e0e0;
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--light-text);
+        }
+        
+        .empty-icon {
+            font-size: 2rem;
+            color: #d0d0d0;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🌿 龙海私厨·健康午餐 🌿</h1>
-            <p class="subtitle">用爱烹饪健康，邀您共享「三好」午餐！</p>
-        </header>
-        
-        <button class="collapsible">关于我们</button>
-        <div class="content">
-            <section class="intro">
-                <div class="feature">
-                    <h3>✨ 好食材</h3>
-                    <p>云南产地直采！新鲜菌菇🍄、高原野菜🌱、特色豆腐…天然无添加，每一口都是山野的馈赠～</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>✨ 好营养</h3>
-                    <p>✅ 少油少盐·轻负担</p>
-                    <p>✅ 低GI搭配·稳血糖</p>
-                    <p>✅ 优质蛋白+高纤维</p>
-                    <p>✅ 每餐均选用优质杂粮主食搭配丰富膳食纤维</p>
-                    <p>控糖期/健身党/养生族通通友好！</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>✨ 好温馨</h3>
-                    <p>6-7席小桌，妈妈私房菜，比食堂更温暖，比外卖更安心❤️</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>📅 时间</h3>
-                    <p>每日中午12:15分开餐</p>
-                    <p>周一至周四私厨快餐（12点50分结束，留足午休时间），周五特设咖啡品鉴畅聊</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>📍 地点</h3>
-                    <p>龙海8B1004</p>
-                </div>
-                
-                <div class="feature">
-                    <h3>💌 预约</h3>
-                    <p>5人即开桌（前晚12点截止报名），26元/位（仅收食材成本价）</p>
-                    <p>请于晚上12点前报第二天餐食，群接龙码/报名格式：姓名+人数+日期</p>
-                    <p>席位不多，快接龙报名，把工作日变成美食日吧！</p>
-                    <p>P.S. 忌口需求请提前告知，为您定制专属健康餐～ 🌈</p>
-                </div>
-            </section>
+    <header class="header">
+        <div class="container">
+            <div class="logo">🌿 龙海私厨 <span class="logo-accent">·</span> 健康午餐</div>
+        </div>
+    </header>
+    
+    <div class="container mt-4">
+        <div class="intro-card">
+            <div class="intro-title">🍽️ 温馨私厨，健康午餐</div>
+            <p>用爱烹饪健康，邀您共享「三好」午餐！</p>
+            
+            <div class="feature-item">
+                <div class="feature-icon"><i class="bi bi-check-circle-fill"></i></div>
+                <div class="feature-text"><strong>好食材</strong>：云南产地直采！新鲜菌菇🍄、高原野菜🌱、特色豆腐…天然无添加，每一口都是山野的馈赠～</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon"><i class="bi bi-check-circle-fill"></i></div>
+                <div class="feature-text"><strong>好营养</strong>：少油少盐·轻负担，低GI搭配·稳血糖，优质蛋白+高纤维，每餐均选用优质杂粮主食搭配丰富膳食纤维。控糖期/健身党/养生族通通友好！</div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon"><i class="bi bi-check-circle-fill"></i></div>
+                <div class="feature-text"><strong>好温馨</strong>：6-7席小桌，妈妈私房菜，比食堂更温暖，比外卖更安心❤️</div>
+            </div>
+            
+            <div class="mt-3">
+                <div><i class="bi bi-clock"></i> <strong>时间</strong>：每日中午12:15分开餐</div>
+                <div><i class="bi bi-geo-alt"></i> <strong>地点</strong>：龙海8B1004</div>
+                <div><i class="bi bi-envelope"></i> <strong>预约</strong>：5人即开桌（前晚12点截止报名），26元/位（仅收食材成本价）</div>
+            </div>
         </div>
         
-        <section class="menu-section">
-            <h2>本周菜单</h2>
-            
-            <div class="menu-day">
-                <h3>3月17号周一午餐</h3>
-                
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <h4>肉食</h4>
-                        <p>云南牙签肉</p>
-                        <img id="monday-meat" src="https://via.placeholder.com/300x200?text=云南牙签肉" alt="云南牙签肉" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>云南特色菜</h4>
-                        <p>炸洋芋，番茄包浆豆腐</p>
-                        <img id="monday-special" src="https://via.placeholder.com/300x200?text=炸洋芋+番茄包浆豆腐" alt="炸洋芋，番茄包浆豆腐" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>配菜</h4>
-                        <p>莲花白炒鸡蛋，五光十色</p>
-                        <img id="monday-side" src="https://via.placeholder.com/300x200?text=莲花白炒鸡蛋+五光十色" alt="莲花白炒鸡蛋，五光十色" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>汤</h4>
-                        <p>白菜豆腐汤</p>
-                        <img id="monday-soup" src="https://via.placeholder.com/300x200?text=白菜豆腐汤" alt="白菜豆腐汤" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>主食</h4>
-                        <p>云南炒耳块</p>
-                        <img id="monday-staple" src="https://via.placeholder.com/300x200?text=云南炒耳块" alt="云南炒耳块" class="menu-photo">
-                    </div>
-                </div>
-                
-                <button class="collapsible">营养搭配评价</button>
-                <div class="content">
-                    <div class="nutrition-analysis">
-                        <p>周一菜单营养均衡，蛋白质、碳水化合物和膳食纤维搭配合理。云南牙签肉提供优质蛋白质，炸洋芋和番茄包浆豆腐富含植物蛋白和维生素，莲花白炒鸡蛋补充维生素和矿物质，白菜豆腐汤有助消化，云南炒耳块作为主食提供必要能量。整体热量适中，油脂控制得当，适合办公室工作人员午餐食用。</p>
-                    </div>
-                </div>
-                
-                <div class="attendance">
-                    <h4>参与人员</h4>
-                    <ul class="attendance-list">
-                        <li>赵斌</li>
-                        <li>李嘉轩</li>
-                        <li>潘莉妮</li>
-                        <li>潘重伊</li>
-                        <li>郑龙</li>
-                        <li>陈良煜</li>
-                    </ul>
-                    <div class="attendance-count">
-                        <p>今日参与人数：<strong id="monday-count">6</strong>人</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="menu-day">
-                <h3>3月18号周二午餐</h3>
-                
-                <div class="menu-items">
-                    <div class="menu-item">
-                        <h4>肉食</h4>
-                        <p>芹菜炒牛肉片</p>
-                        <img id="tuesday-meat" src="https://via.placeholder.com/300x200?text=芹菜炒牛肉片" alt="芹菜炒牛肉片" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>云南特色菜</h4>
-                        <p>云南烧豆腐</p>
-                        <img id="tuesday-special" src="https://via.placeholder.com/300x200?text=云南烧豆腐" alt="云南烧豆腐" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>配菜</h4>
-                        <p>蒸鸡蛋，炒鲜蔬</p>
-                        <img id="tuesday-side" src="https://via.placeholder.com/300x200?text=蒸鸡蛋+炒鲜蔬" alt="蒸鸡蛋，炒鲜蔬" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>凉菜</h4>
-                        <p>花生凉拌藕</p>
-                        <img id="tuesday-cold" src="https://via.placeholder.com/300x200?text=花生凉拌藕" alt="花生凉拌藕" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>汤</h4>
-                        <p>骨头山药汤</p>
-                        <img id="tuesday-soup" src="https://via.placeholder.com/300x200?text=骨头山药汤" alt="骨头山药汤" class="menu-photo">
-                    </div>
-                    
-                    <div class="menu-item">
-                        <h4>主食</h4>
-                        <p>饺子🥟</p>
-                        <img id="tuesday-staple" src="https://via.placeholder.com/300x200?text=饺子" alt="饺子" class="menu-photo">
-                    </div>
-                </div>
-                
-                <button class="collapsible">营养搭配评价</button>
-                <div class="content">
-                    <div class="nutrition-analysis">
-                        <p>周二菜单营养丰富多样，芹菜炒牛肉片提供优质蛋白质和铁元素，有助于补血提神；云南烧豆腐富含植物蛋白，蒸鸡蛋提供优质蛋白质且易于消化；炒鲜蔬和花生凉拌藕增加了膳食纤维和抗氧化物质；骨头山药汤富含胶原蛋白和多种微量元素，有益于肠胃健康；饺子作为主食既美味又饱腹。整体搭配荤素均衡，口味多样，热量适中，是一顿营养全面的健康午餐。</p>
-                    </div>
-                </div>
-                
-                <div class="attendance">
-                    <h4>参与人员</h4>
-                    <ul class="attendance-list">
-                        <li>赵斌</li>
-                        <li>李嘉轩</li>
-                        <li>杨薇</li>
-                        <li>郭佳欣</li>
-                        <li>倪铭君</li>
-                        <li>陈良煜</li>
-                    </ul>
-                    <div class="attendance-count">
-                        <p>今日参与人数：<strong id="tuesday-count">6</strong>人</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="menu-day">
-                <h3>3月19号周三午餐</h3>
-                <p style="text-align: center; padding: 15px; color: #909399; font-size: 0.9rem;">菜单更新中，敬请期待...</p>
-            </div>
-            
-            <div class="menu-day">
-                <h3>3月20号周四午餐</h3>
-                <p style="text-align: center; padding: 15px; color: #909399; font-size: 0.9rem;">菜单更新中，敬请期待...</p>
-            </div>
-            
-            <div class="menu-day">
-                <h3>3月21号周五午餐</h3>
-                <p style="text-align: center; padding: 15px; color: #909399; font-size: 0.9rem;">菜单更新中，敬请期待...</p>
-            </div>
-        </section>
+        <div class="menu-date">
+            <span class="date-dot"></span> 本周菜单
+        </div>
         
-        <button class="collapsible">如何更新图片和内容</button>
-        <div class="content">
-            <div class="upload-tip">
-                <h3>图片上传指南</h3>
-                <ol>
-                    <li>将菜品照片保存到您的手机或电脑中</li>
-                    <li>将照片上传到免费图床网站，如：
-                        <ul>
-                            <li><a href="https://imgbb.com/" target="_blank">ImgBB</a></li>
-                            <li><a href="https://sm.ms/" target="_blank">SM.MS</a></li>
-                            <li>或使用微信公众号后台的素材库</li>
-                        </ul>
-                    </li>
-                    <li>获取图片链接后，修改HTML文件中对应的图片地址</li>
-                    <li>例如，要更新周一的肉食图片，找到 <code>id="monday-meat"</code> 的图片标签，修改 <code>src</code> 属性值为您的图片链接</li>
-                </ol>
-                
-                <h3>更新参与人员</h3>
-                <ol>
-                    <li>找到对应日期的 <code>attendance-list</code> 部分</li>
-                    <li>修改 <code>&lt;li&gt;</code> 标签中的姓名</li>
-                    <li>更新 <code>id="monday-count"</code> 或 <code>id="tuesday-count"</code> 的数字为实际参与人数</li>
-                </ol>
+        <!-- 周一菜单卡片 -->
+        <div class="menu-card active">
+            <div class="menu-card-header">
+                <div>
+                    <div class="menu-day">周一午餐</div>
+                    <div class="menu-date-small">3月17日</div>
+                </div>
+                <div class="attendees-count">6</div>
             </div>
+            
+            <div class="menu-category">肉食</div>
+            <div class="menu-item">云南牙签肉</div>
+            
+            <div class="menu-category">云南特色菜</div>
+            <div class="menu-item">炸洋芋</div>
+            <div class="menu-item">番茄包浆豆腐</div>
+            
+            <div class="menu-category">配菜</div>
+            <div class="menu-item">莲花白炒鸡蛋</div>
+            <div class="menu-item">五光十色</div>
+            
+            <div class="menu-category">汤</div>
+            <div class="menu-item">白菜豆腐汤</div>
+            
+            <div class="menu-category">主食</div>
+            <div class="menu-item">云南炒耳块</div>
+            
+            <div class="menu-image-container">
+                <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="菜品展示" class="menu-image">
+            </div>
+            
+            <div class="nutrition-section">
+                <div class="nutrition-title">
+                    <i class="bi bi-heart-pulse-fill nutrition-icon"></i> 营养搭配评价
+                </div>
+                <p>这份菜单营养均衡，蛋白质与碳水化合物搭配合理。云南牙签肉提供优质蛋白质，炸洋芋和炒耳块提供碳水化合物能量，配菜富含膳食纤维和多种维生素，白菜豆腐汤帮助消化吸收。</p>
+                <div>
+                    <span class="nutrition-badge">优质蛋白</span>
+                    <span class="nutrition-badge">膳食纤维</span>
+                    <span class="nutrition-badge">维生素丰富</span>
+                    <span class="nutrition-badge">云南特色</span>
+                </div>
+            </div>
+            
+            <div class="attendees-section">
+                <div class="attendees-title">
+                    参与人员 <span class="attendees-count">6</span>
+                </div>
+                <div class="attendees-list">
+                    <div class="attendee-tag">赵斌</div>
+                    <div class="attendee-tag">李嘉轩</div>
+                    <div class="attendee-tag">潘莉妮</div>
+                    <div class="attendee-tag">潘重伊</div>
+                    <div class="attendee-tag">郑龙</div>
+                    <div class="attendee-tag">陈良煜</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 周二菜单卡片 -->
+        <div class="menu-card">
+            <div class="menu-card-header">
+                <div>
+                    <div class="menu-day">周二午餐</div>
+                    <div class="menu-date-small">3月18日</div>
+                </div>
+                <div class="attendees-count">6</div>
+            </div>
+            
+            <div class="menu-category">肉食</div>
+            <div class="menu-item">芹菜炒牛肉片</div>
+            
+            <div class="menu-category">云南特色菜</div>
+            <div class="menu-item">云南烧豆腐</div>
+            
+            <div class="menu-category">配菜</div>
+            <div class="menu-item">蒸鸡蛋</div>
+            <div class="menu-item">炒鲜蔬</div>
+            
+            <div class="menu-category">凉菜</div>
+            <div class="menu-item">花生凉拌藕</div>
+            
+            <div class="menu-category">汤</div>
+            <div class="menu-item">骨头山药汤</div>
+            
+            <div class="menu-category">主食</div>
+            <div class="menu-item">饺子🥟</div>
+            
+            <div class="menu-image-container">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80" alt="菜品展示" class="menu-image">
+            </div>
+            
+            <div class="nutrition-section">
+                <div class="nutrition-title">
+                    <i class="bi bi-heart-pulse-fill nutrition-icon"></i> 营养搭配评价
+                </div>
+                <p>这份菜单营养丰富全面。牛肉片富含优质蛋白质和铁质，云南烧豆腐提供植物蛋白，花生凉拌藕增添膳食纤维和抗氧化物质，骨头山药汤有助于滋补养生，饺子作为主食提供均衡能量。</p>
+                <div>
+                    <span class="nutrition-badge">铁质丰富</span>
+                    <span class="nutrition-badge">植物蛋白</span>
+                    <span class="nutrition-badge">抗氧化</span>
+                    <span class="nutrition-badge">滋补养生</span>
+                </div>
+            </div>
+            
+            <div class="attendees-section">
+                <div class="attendees-title">
+                    参与人员 <span class="attendees-count">6</span>
+                </div>
+                <div class="attendees-list">
+                    <div class="attendee-tag">赵斌</div>
+                    <div class="attendee-tag">李嘉轩</div>
+                    <div class="attendee-tag">杨薇</div>
+                    <div class="attendee-tag">郭佳欣</div>
+                    <div class="attendee-tag">倪铭君</div>
+                    <div class="attendee-tag">陈良煜</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 周三菜单卡片（空） -->
+        <div class="empty-card">
+            <div class="empty-icon"><i class="bi bi-calendar-plus"></i></div>
+            <div>周三菜单尚未公布</div>
+            <div class="mt-2 text-muted">敬请期待...</div>
+        </div>
+        
+        <!-- 周四菜单卡片（空） -->
+        <div class="empty-card">
+            <div class="empty-icon"><i class="bi bi-calendar-plus"></i></div>
+            <div>周四菜单尚未公布</div>
+            <div class="mt-2 text-muted">敬请期待...</div>
+        </div>
+        
+        <!-- 周五菜单卡片（空） -->
+        <div class="empty-card">
+            <div class="empty-icon"><i class="bi bi-calendar-plus"></i></div>
+            <div>周五菜单尚未公布</div>
+            <div class="mt-2 text-muted">敬请期待...</div>
         </div>
     </div>
     
-    <footer>
-        <p>「吃饭不将就，身体才温柔」</p>
-        <p>© 2024 龙海私厨·健康午餐 版权所有</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-text">「吃饭不将就，身体才温柔」 - 龙海私厨</div>
+        </div>
     </footer>
     
-    <script>
-        // 折叠面板功能
-        var coll = document.getElementsByClassName("collapsible");
-        for (var i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
-        }
-        
-        // 图片替换功能
-        function updateImage(dishId, imageUrl) {
-            const imgElement = document.getElementById(dishId);
-            if (imgElement) {
-                imgElement.src = imageUrl;
-            }
-        }
-        
-        // 更新参与人数的功能
-        function updateAttendance(dayId, count) {
-            const attendanceElement = document.getElementById(dayId);
-            if (attendanceElement) {
-                attendanceElement.textContent = count;
-            }
-        }
-        
-        // 示例：如何使用这些函数
-        // updateImage('monday-meat', 'https://example.com/new-image.jpg');
-        // updateAttendance('monday-count', '20');
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 
